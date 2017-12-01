@@ -48,7 +48,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      'components': path.resolve(__dirname, './src/components')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -56,7 +57,7 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,//这个配置属性用来在编译出错的时候，在浏览器页面上显示错误这个配置属性用来在编译出错的时候，在浏览器页面上显示错误
-    open:true,
+    open: true,
     inline: true,//实时刷新
     contentBase: path.join(__dirname, "dist")
   },
@@ -76,7 +77,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src/instance/instance_1", "index.html"),
       filename: './instance/instance_1/index.html',
-      excludeChunks:['build']
+      excludeChunks: ['build']
     })
   ]
 };
