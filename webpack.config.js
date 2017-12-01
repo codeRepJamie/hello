@@ -7,6 +7,7 @@ const path = require('path')
 module.exports = {
   entry: {
     build: path.resolve(__dirname, './src/main.js'),
+    instanceOne: path.resolve(__dirname, './src/instance/instance_1/main.js'),
     vue: ['vue']
   },
   output: {
@@ -71,6 +72,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),
       filename: './index.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "src/instance/instance_1", "index.html"),
+      filename: './instance/instance_1/index.html',
+      excludeChunks:['build']
     })
   ]
 };
