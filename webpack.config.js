@@ -8,13 +8,13 @@ module.exports = {
   entry: {
     build: path.resolve(__dirname, './src/main.js'),
     instanceOne: path.resolve(__dirname, './src/instance/instance_1/main.js'),
+    vendor: 'currencyValidator',
     vue: ['vue']
   },
   output: {
     path: path.resolve(__dirname, './dist'),
     //publicPath: '/dist/',
-    filename: '[name].[hash].js',
-    chunkFilename: '[id].[chunkhash].js'
+    filename: '[name].[hash].js'
   },
   module: {
     rules: [
@@ -49,7 +49,8 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'components': path.resolve(__dirname, './src/components')
+      'components': path.resolve(__dirname, './src/components'),
+      'currencyValidator': path.resolve(__dirname, './src/js/currency-validator')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -64,15 +65,17 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map',
-  externals: {},
+  devtool: '#cheap-module-eval-source-map',
+  externals: {
+  },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vue', 'runtime'] // 指定公共 bundle 的名字。
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),
-      filename: './index.html'
+      filename: './index.html',
+      excludeChunks: ['instanceOne']
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src/instance/instance_1", "index.html"),
@@ -83,6 +86,7 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === 'production') {
+  module.exports.output.filename = '[name].[chunkhash].js';
   module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
