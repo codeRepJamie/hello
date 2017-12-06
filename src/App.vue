@@ -18,7 +18,7 @@
     </ul>
     <h2>Instance</h2>
     <ul>
-      <li><a href="./instance/instance_1/index.html" target="_blank">instance_1</a></li>
+      <li><a href="./instance_index.html" target="_blank">instance_1</a></li>
     </ul>
   </div>
 </template>

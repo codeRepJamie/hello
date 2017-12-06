@@ -8,7 +8,7 @@ module.exports = {
   entry: {
     build: path.resolve(__dirname, './src/main.js'),
     instanceOne: path.resolve(__dirname, './src/instance/instance_1/main.js'),
-    vendor: 'currencyValidator',
+    vendor: ['currencyValidator','iview','iviewCss'],
     vue: ['vue']
   },
   output: {
@@ -43,6 +43,13 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        loader: "file-loader",
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
       }
     ]
   },
@@ -50,9 +57,10 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       'components': path.resolve(__dirname, './src/components'),
-      'currencyValidator': path.resolve(__dirname, './src/js/currency-validator')
+      'currencyValidator': path.resolve(__dirname, './src/js/currency-validator'),
+      'iviewCss':  'iview/dist/styles/iview.css'
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ['*', '.js', '.vue', '.json','.css']
   },
   devServer: {
     historyApiFallback: true,
@@ -70,7 +78,7 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vue', 'runtime'] // 指定公共 bundle 的名字。
+      names: ['vue', 'runtime','vendor'] // 指定公共 bundle 的名字。
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),
@@ -79,7 +87,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src/instance/instance_1", "index.html"),
-      filename: './instance/instance_1/index.html',
+      filename: './instance_index.html',
       excludeChunks: ['build']
     })
   ]

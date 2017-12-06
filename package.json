@@ -10,6 +10,10 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "fish-ui": "^1.0.91",
+    "iview": "^2.7.4",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "vue": "^2.4.4"
   },
   "browserslist": [
