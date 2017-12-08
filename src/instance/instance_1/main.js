@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import currencyValidator from 'currencyValidator';
-import {Input,Avatar} from 'iview';
+import {Input, Avatar} from 'iview';
 import 'iviewCss';
+import './style.less';
 
 //Vue.use(iView);
 
@@ -87,7 +88,7 @@ let AsyncExample = function (resolve, reject) {
 };
 
 
-new Vue({
+window.vm = new Vue({
   el: '#app',
   data: {
     a: 1,
@@ -95,7 +96,15 @@ new Vue({
     c: 3,
     e: 0,
     shoePrice: 10,
-    currentView: 'currencyInput'
+    currentView: 'currencyInput',
+    show: false,
+    items: [{
+      text: 123
+    }, {
+      text: 456
+    }],
+    isEditing: true,
+    isOn: true
   },
   // 选项
   template: `<div>
@@ -118,6 +127,58 @@ new Vue({
   
   <async-example></async-example>
   <i-avatar icon="person" src=""></i-avatar>
+  <div>
+    <transition
+    v-on:before-enter="beforeEnter"
+    v-on:enter="enter"
+    v-on:leave="leave"
+    v-bind:css="false"
+  >
+    <p v-if="show">
+      Demo
+    </p>
+  </transition>
+    <button v-on:click="show = !show">
+      Toggle
+    </button>
+    
+    <transition
+  appear
+  appear-class="custom-appear-class"
+  appear-to-class="custom-appear-to-class"
+  appear-active-class="custom-appear-active-class"
+  
+  v-on:before-appear="customBeforeAppearHook"
+  v-on:appear="customAppearHook"
+  v-on:after-appear="customAfterAppearHook"
+>
+  <p>apper</p>
+</transition>
+    
+    <!--多个元素的过渡-->
+    <transition>
+      <table v-if="items.length > 0">
+        <tr v-for="item in items">
+          <td>{{item.text}}</td>
+        </tr>
+      </table>
+      <p v-else>Sorry, no items found.</p>
+    </transition>
+    
+  </div>
+  
+  <transition>
+     <button v-bind:key="isEditing" @click="isEditing = !isEditing">
+        {{ isEditing ? 'Save' : 'Edit' }}
+      </button>
+  </transition>
+  
+  <transition>
+    <button class="btnTrans" :key="isOn" @click="isOn = !isOn">
+      {{ isOn ? 'on': 'off' }}
+    </button>
+</transition>
+  
 </div>
 `,
   components: {
@@ -134,6 +195,35 @@ new Vue({
   methods: {
     change: function () {
       this.currentView = this.currentView === 'myComponent' ? 'currencyInput' : 'myComponent';
+    },
+    /** 动画 **/
+    beforeEnter: function (el) {
+      el.style.opacity = 0;
+      el.style.transformOrigin = 'left'
+    },
+    enter: function (el, done) {
+      Velocity(el, {opacity: 1, fontSize: '1.4em'}, {duration: 300});
+      Velocity(el, {fontSize: '1em'}, {complete: done});
+    },
+    leave: function (el, done) {
+      Velocity(el, {translateX: '15px', rotateZ: '50deg'}, {duration: 600});
+      Velocity(el, {rotateZ: '100deg'}, {loop: 2});
+      Velocity(el, {
+        rotateZ: '45deg',
+        translateY: '30px',
+        translateX: '30px',
+        opacity: 0
+      }, {complete: done});
+    },
+    customBeforeAppearHook: function (el) {
+      console.log('customBeforeAppearHook');
+    },
+    customAppearHook: function (el, done) {
+      console.log('customAppearHook');
+      done();
+    },
+    customAfterAppearHook: function (el) {
+      console.log('customAfterAppearHook');
     }
   }
 });

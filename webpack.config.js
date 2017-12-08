@@ -8,7 +8,7 @@ module.exports = {
   entry: {
     build: path.resolve(__dirname, './src/main.js'),
     instanceOne: path.resolve(__dirname, './src/instance/instance_1/main.js'),
-    vendor: ['currencyValidator','iview','iviewCss'],
+    vendor: ['currencyValidator', 'iview', 'iviewCss'],
     vue: ['vue']
   },
   output: {
@@ -24,6 +24,13 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
+      }, {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          'less-loader'
+        ]
       }, {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -58,9 +65,9 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       'components': path.resolve(__dirname, './src/components'),
       'currencyValidator': path.resolve(__dirname, './src/js/currency-validator'),
-      'iviewCss':  'iview/dist/styles/iview.css'
+      'iviewCss': 'iview/dist/styles/iview.css'
     },
-    extensions: ['*', '.js', '.vue', '.json','.css']
+    extensions: ['*', '.js', '.vue', '.json', '.css', '.less']
   },
   devServer: {
     historyApiFallback: true,
@@ -74,11 +81,10 @@ module.exports = {
     hints: false
   },
   devtool: '#cheap-module-eval-source-map',
-  externals: {
-  },
+  externals: {},
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vue', 'runtime','vendor'] // 指定公共 bundle 的名字。
+      names: ['vue', 'runtime', 'vendor'] // 指定公共 bundle 的名字。
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),
