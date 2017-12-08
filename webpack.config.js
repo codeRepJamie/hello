@@ -8,7 +8,7 @@ module.exports = {
   entry: {
     build: path.resolve(__dirname, './src/main.js'),
     instanceOne: path.resolve(__dirname, './src/instance/instance_1/main.js'),
-    vendor: ['currencyValidator', 'iview', 'iviewCss'],
+    vendor: ['currencyValidator', 'iview', 'iviewCss','Velocityjs'],
     vue: ['vue']
   },
   output: {
@@ -65,7 +65,8 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       'components': path.resolve(__dirname, './src/components'),
       'currencyValidator': path.resolve(__dirname, './src/js/currency-validator'),
-      'iviewCss': 'iview/dist/styles/iview.css'
+      'iviewCss': 'iview/dist/styles/iview.css',
+      'Velocityjs': path.resolve(__dirname, './src/js/velocity.min.js')
     },
     extensions: ['*', '.js', '.vue', '.json', '.css', '.less']
   },

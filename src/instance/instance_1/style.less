@@ -1,9 +1,11 @@
 .bounce-enter-active {
   animation: bounce-in .5s;
 }
+
 .bounce-leave-active {
   animation: bounce-in .5s reverse;
 }
+
 @keyframes bounce-in {
   0% {
     transform: scale(0);
@@ -16,23 +18,53 @@
   }
 }
 
-.btnTrans{
+.btnTrans {
   width: 20px;
   position: absolute;
   background-color: red;
-  &.v-enter-active,&.v-leave-active{
-    transition:all .3s ease;
+  &.v-enter-active, &.v-leave-active {
+    transition: all .3s ease;
   }
-  &.v-enter{
+  &.v-enter {
     background-color: blue;
+    opacity: 0;
+    transform: translateX(20px);
   }
-  &.v-enter-to{
+  &.v-enter-to {
+    opacity: 1;
+  }
+  &.v-leave {
+    opacity: 1;
+  }
+  &.v-leave-to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+.list-complete-item {
+  border: 1px solid #CCC;
+  margin: 5px;
+  display: inline-block;
+  padding: 0 3px;
+  /*transition: all 1s;*/
+
+  &.list-complete-move{
+    transition: all .3s;
     background-color: red;
   }
-  &.v-leave{
-    background-color: red;
+  &.list-complete-enter-active, &.list-complete-leave-active {
+    transition: all .3s;
   }
-  &.v-leave-to{
-    background-color: blue;
+  &.list-complete-enter,&.list-complete-leave-to{
+    opacity: 0;
+    transform: translateY(30px);
   }
+  &.list-complete-leave-active{
+    position: absolute;
+  }
+}
+
+.flip-list-move {
+  transition: transform 1s;
 }
