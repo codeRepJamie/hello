@@ -7,6 +7,7 @@ import './style.less';
 
 //Vue.use(iView);
 
+/*
 let Child = {
   props: ['message'],
   template: `
@@ -25,7 +26,9 @@ let Child = {
     }
   }
 };
+*/
 
+/*
 let Currency = {
   data: function () {
     return {isDisplay: true}
@@ -46,9 +49,9 @@ let Currency = {
   template: `
     <p>
       <label v-if="label">{{label}}：&yen;</label>
-      <input 
-        ref="input" 
-        type="text" 
+      <input
+        ref="input"
+        type="text"
         @focus="selectAll"
         @input="updateValue($event.target.value)"
         v-show="isDisplay"
@@ -78,15 +81,16 @@ let Currency = {
     }
   }
 };
+*/
 
-let AsyncExample = function (resolve, reject) {
+/*let AsyncExample = function (resolve, reject) {
   setTimeout(function () {
     // 将组件定义传入 resolve 回调函数
     resolve({
       template: '<div>I am async!</div>'
     })
   }, 1000)
-};
+};*/
 
 
 /*window.vm = new Vue({
@@ -411,7 +415,7 @@ var StaggeredList = {
 });*/
 
 //动态过渡
-new Vue({
+/*new Vue({
   data: {
     show:true,
     fadeInDuration: 0,
@@ -474,6 +478,117 @@ new Vue({
           vm.show = true;
         }
       })
+    }
+  }
+});*/
+//状态动画与观察者
+/*window.v = new Vue({
+  el: '#animated-number-demo',
+  template: `
+<div class="animated-number-demo">
+  <input v-model="number" type="number" step="20">
+  <p>{{ animatedNumber }}</p>
+</div>
+  `,
+  data: {
+    number: 0,
+    animatedNumber: 0
+  },
+  watch: {
+    number: function (new_value, old_value) {
+      let vm = this;
+      //vm.animatedNumber = vm.number;
+
+      new TWEEN.Tween({tweeningNumber: old_value})
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({tweeningNumber: new_value}, 500)
+        .onUpdate(function () {
+          console.log(vm.animatedNumber);
+          vm.animatedNumber = this.tweeningNumber.toFixed(0);
+        })
+        .start();
+
+
+
+      function animate() {
+        if (TWEEN.update()) {
+          a++;
+          requestAnimationFrame(animate)
+        }
+      }
+
+      animate();
+    }
+  }
+});*/
+//状态动画与观察者(颜色)
+
+var Color = net.brehaut.Color;
+
+window.color = new Vue({
+  el: '#animated-number-demo',
+  template: `
+<div class="color">
+  <input type="text"
+    placeholder="Enter a color"
+    v-model="colorQuery"
+    @keyup.enter="update"
+  >
+  <button @click="update">Update</button>
+  <div>
+    Preview:
+    <div class="preview" :style="{backgroundColor:previewCssColor}"></div>
+    <p class="preview-text">{{previewCssColor}}</p>
+  </div>
+</div>
+  `,
+  data: {
+    colorQuery: '',
+    color: {
+      red: 0,
+      green: 0,
+      blue: 0,
+      alpha: 1,
+    },
+    previewColor: {},
+  },
+  created:function () {
+    this.previewColor = Object.assign({},this.color);
+  },
+  computed: {
+    previewCssColor: function () {
+      return new Color({
+        red: this.previewColor.red,
+        green: this.previewColor.green,
+        blue: this.previewColor.blue,
+        alpha: this.previewColor.alpha
+      }).toCSS()
+    }
+    /*previewColor:function () {
+      return this.color;
+    }*/
+  },
+  watch: {
+    color: function () {
+      let vm =this;
+      new TWEEN.Tween(this.previewColor)
+        .to(this.color, 750)
+        .start();
+
+      animate();
+
+      function animate() {
+        console.log(vm.previewColor.red);
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
+      }
+    }
+  },
+  methods: {
+    update: function () {
+      this.color = new Color(this.colorQuery).toRGB();
+      this.colorQuery = '';
     }
   }
 });

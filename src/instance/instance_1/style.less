@@ -49,18 +49,18 @@
   padding: 0 3px;
   /*transition: all 1s;*/
 
-  &.list-complete-move{
+  &.list-complete-move {
     transition: all .3s;
     background-color: red;
   }
   &.list-complete-enter-active, &.list-complete-leave-active {
     transition: all .3s;
   }
-  &.list-complete-enter,&.list-complete-leave-to{
+  &.list-complete-enter, &.list-complete-leave-to {
     opacity: 0;
     transform: translateY(30px);
   }
-  &.list-complete-leave-active{
+  &.list-complete-leave-active {
     position: absolute;
   }
 }
@@ -69,11 +69,19 @@
   transition: transform 1s;
 }
 
-.demo{
-  .circular{
+.demo {
+  .circular {
     background-color: red;
     border-radius: 50%;
     width: 30px;
     height: 30px;
+  }
+}
+
+.color {
+  .preview {
+    display: block;
+    width: 60px;
+    height: 60px;
   }
 }
