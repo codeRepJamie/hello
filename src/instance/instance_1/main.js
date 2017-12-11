@@ -523,7 +523,7 @@ var StaggeredList = {
 });*/
 //状态动画与观察者(颜色)
 
-var Color = net.brehaut.Color;
+/*var Color = net.brehaut.Color;
 
 window.color = new Vue({
   el: '#animated-number-demo',
@@ -564,9 +564,9 @@ window.color = new Vue({
         alpha: this.previewColor.alpha
       }).toCSS()
     }
-    /*previewColor:function () {
+    /!*previewColor:function () {
       return this.color;
-    }*/
+    }*!/
   },
   watch: {
     color: function () {
@@ -591,4 +591,72 @@ window.color = new Vue({
       this.colorQuery = '';
     }
   }
+});*/
+
+//把过渡放到组件里
+var AnimateNumber = {
+  props: {
+    value: {
+      type: Number,
+      required: true
+    }
+  },
+  data: function () {
+    return {
+      tweeningValue: 0
+    };
+  },
+  watch: {
+    value: function (new_value, old_value) {
+      this.tween(old_value,new_value);
+    }
+  },
+  mounted: function () {
+    this.tween(0, this.value)
+  },
+  methods: {
+    tween: function (start_value, end_value) {
+      let vm = this;
+      new TWEEN.Tween({tweeningValue: start_value})
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({tweeningValue: end_value}, 500)
+        .onUpdate(function () {
+          vm.tweeningValue = this.tweeningValue.toFixed(0);
+        })
+        .start();
+
+      function animate() {
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      animate();
+    }
+  },
+  template: `
+    <span>{{tweeningValue}}</span>
+  `
+};
+
+new Vue({
+  el: '#example-8',
+  components: {
+    AnimateNumber: AnimateNumber
+  },
+  data: {
+    num_1: 28,
+    num_2: 40
+  },
+  computed: {
+    result: function () {
+      return this.num_1 + this.num_2;
+    }
+  },
+  template: `
+<div>
+    <input style="width: 60px" type="number" v-model.number="num_1"/> + <input style="width: 60px" type="number" v-model.number="num_2"/> = {{result}}
+    <div><animate-number :value="num_1"/> + <animate-number :value="num_2"/> = <animate-number :value="result"/></div>
+</div>
+    `,
 });
