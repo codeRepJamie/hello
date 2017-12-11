@@ -315,6 +315,7 @@ let AsyncExample = function (resolve, reject) {
   }
 });*/
 //staggered-list
+/*
 var StaggeredList = {
   props:['list'],
   template: `
@@ -323,16 +324,21 @@ var StaggeredList = {
       <transition-group
         name="list-complete"
         tag="ul"
+        :css="false"
         @before-enter="beforeEnter"
         @enter="enter"
         @leave="leave"
       >
-        <li v-for="(item, index) in computedList"
+        <!--<li v-for="(item, index) in computedList"
           v-bind:key="index"
-          v-bind:data-index="index">
+          v-bind:data-index="index"
+          >
           <slot :item="item"></slot>
-        </li>
-        
+        </li>-->
+        <div v-for="(item, index) in computedList" v-bind:key="index" v-bind:data-index="index">
+          <slot :item="item" ></slot>
+        </div>
+
       </transition-group>
     </div>
   `,
@@ -356,33 +362,34 @@ var StaggeredList = {
       el.style.height = 0;
     },
     enter: function (el, done) {
-      var delay = el.dataset.index * 1000;
+      var delay = el.dataset.index * 300;
       setTimeout(function () {
         Velocity(
           el,
           {opacity: 1, height: '1.6em'},
-          {complete: done, duration: 2000}
+          {complete: done, duration: 300}
         )
       }, delay);
     },
     leave: function (el, done) {
-      var delay = el.dataset.index * 1000;
+      var delay = el.dataset.index * 300;
       setTimeout(function () {
         Velocity(
           el,
           {opacity: 0, height: 0},
-          {complete: done, duration: 2000}
+          {complete: done, duration: 300}
         )
       }, delay)
     }
   }
 };
+*/
 
-new Vue({
+/*new Vue({
   el: '#staggered-list-demo',
   data:{
     list: [
-      {msg: 'Bruce Lee'},
+      {msg: 'Bruce Lee',title:'name'},
       {msg: 'Jackie Chan'},
       {msg: 'Chuck Norris'},
       {msg: 'Jet Li'},
@@ -392,12 +399,81 @@ new Vue({
   },
   template: `
   <staggered-list :list="list">
-      <template slot-scope="props">
+      <div class="list-item" slot-scope="props">
+        <h1 v-if="props.item.title">{{props.item.title}}</h1>
         <span>{{props.item.msg}}</span>
-      </template>
+      </div>
   </staggered-list>
   `,
   components: {
     StaggeredList: StaggeredList
+  }
+});*/
+
+//动态过渡
+new Vue({
+  data: {
+    show:true,
+    fadeInDuration: 0,
+    fadeOutDuration: 0,
+    maxFadeDuration: 5000,
+    stop:true
+  },
+  el: '#dynamic-fade-demo',
+  template: `
+<div class="demo">
+  <p>Fade In: <input type="range" v-model="fadeInDuration" value="0" min="0" :max="maxFadeDuration"></p>
+  <p>Fade Out: <input type="range" v-model="fadeOutDuration" value="0" min="0" :max="maxFadeDuration"></p>
+  <transition
+    :css="false"
+    @enter="enter"
+    @leave="leave"
+    @beforeEnter="beforeEnter"
+  >
+    <div class="circular" v-if="show"></div>
+  </transition>
+  <button
+    v-if="stop"
+    v-on:click="stop = false; show = false"
+  >Start animating</button>
+  <button
+    v-else
+    v-on:click="stop = true"
+  >Stop it!</button>
+</div>
+  `,
+  mounted:function () {
+    this.show = false;
+  },
+  methods: {
+    beforeEnter: function (el) {
+      el.style.opacity = 0
+    },
+    enter: function (el, done) {
+      let vm = this;
+      Velocity(el, {
+        opacity: 1
+      }, {
+        duration: this.fadeInDuration,
+        complete:function () {
+          done();
+          if(!vm.stop) {
+            vm.show = false
+          }
+        }
+      })
+    },
+    leave: function (el, done) {
+      let vm = this;
+      Velocity(el, {
+        opacity: 0
+      },{
+        duration: this.fadeOutDuration,
+        complete:function () {
+          done();
+          vm.show = true;
+        }
+      })
+    }
   }
 });
