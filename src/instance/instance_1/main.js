@@ -736,7 +736,7 @@ new Vue({
 });*/
 
 //节点、树以及虚拟-DOM
-var getChildrenTextContent = function (children) {
+/*var getChildrenTextContent = function (children) {
   return children.map(function (node) {
     return node.children
       ? getChildrenTextContent(node.children)
@@ -786,4 +786,58 @@ new Vue({
   </anchored-heading>
 </div>
   `
+});*/
+
+//VNodes 必须唯一
+const vnodes = Vue.component('vnode', {
+
+  data: function () {
+    return {cli: 'haha'}
+  },
+  mounted: function () {
+
+  },
+  render: function (h) {
+    let self = this
+      , input = h('input', {
+        domProps: {
+          id: 'jamie',
+          type: 'text',
+          value: this.cli
+        },
+        on: {
+          input: (event) => {
+            this.cli = event.target.value;
+            this.$emit('input123', event.target.value);
+          }
+        }
+      })
+      , ul = h('ul', Array.apply(null, {length: 20}).map(item => {
+        return h('li', this.cli)
+      }))
+      , scoped_slots = this.$scopedSlots.default({
+        text: this.cli + ' slot'
+      })
+    ;
+
+    return h('div', [input, ul, scoped_slots]);
+  }
 });
+
+
+new Vue({
+  el: '#example-12',
+  render: function (h) {
+    return h('vnode', {
+      on: {
+        '&input123': (value) => {
+          console.log(value);
+        }
+      },
+      scopedSlots: {
+        default: props => h('span', [h('a', props.text)])
+      }
+    })
+  }
+});
+
