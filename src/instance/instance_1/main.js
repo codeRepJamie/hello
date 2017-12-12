@@ -699,17 +699,17 @@ new Vue({
 
 //自定义指令
 // 注册一个全局自定义指令 `v-focus`
-Vue.directive('demo', {
+/*Vue.directive('demo', {
   bind: function (el, binding, vnode) {
     var s = JSON.stringify
-    /*el.innerHTML =
+    /!*el.innerHTML =
       'name: '       + s(binding.name) + '<br>' +
       'value: '      + s(binding.value) + '<br>' +
       'expression: ' + s(binding.expression) + '<br>' +
       'argument: '   + s(binding.arg) + '<br>' +
       'modifiers: '  + s(binding.modifiers) + '<br>' +
       'vnode keys: ' + Object.keys(vnode).join(', ')
-    console.log(vnode);*/
+    console.log(vnode);*!/
   }
 });
 
@@ -733,4 +733,57 @@ new Vue({
       }
     }
   }
+});*/
+
+//节点、树以及虚拟-DOM
+var getChildrenTextContent = function (children) {
+  return children.map(function (node) {
+    return node.children
+      ? getChildrenTextContent(node.children)
+      : node.text
+  }).join('')
+};
+
+Vue.component('anchored-heading', {
+  render: function (createElement) {
+    // create kebabCase id
+    var headingId = getChildrenTextContent(this.$slots.default)
+      .toLowerCase()
+      .replace(/\W+/g, '-')
+      .replace(/(^\-|\-$)/g, '')
+
+    return createElement(
+      'h' + this.level,
+      [
+        createElement('a', {
+          attrs: {
+            name: headingId,
+            href: '#' + headingId
+          }
+        }, this.$slots.default)
+      ]
+    )
+  },
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  }
+});
+
+new Vue({
+  el: '#example-11',
+  template: `
+<div>
+  <anchored-heading :level="1">
+    <p>
+      <ul>
+        <li>jamieTsang</li>
+        <li>jamieTsang1233</li>
+      </ul>
+    </p>
+  </anchored-heading>
+</div>
+  `
 });
