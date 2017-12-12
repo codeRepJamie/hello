@@ -789,7 +789,7 @@ new Vue({
 });*/
 
 //VNodes 必须唯一
-const vnodes = Vue.component('vnode', {
+/*const vnodes = Vue.component('vnode', {
 
   data: function () {
     return {cli: 'haha'}
@@ -838,6 +838,27 @@ new Vue({
         default: props => h('span', [h('a', props.text)])
       }
     })
+  }
+});*/
+
+//JSX
+import Page from './page.vue';
+import AnchoredHead from './AnchoredHead.vue';
+
+new Vue({
+  el: '#example-13',
+  data: {
+    header: 'jamie form page'
+  },
+  render: (h) => {
+    return h(Page, {
+      props: {
+        data: this.data
+      }
+    })
+  },
+  components: {
+    AnchoredHead
   }
 });
 
