@@ -594,7 +594,7 @@ window.color = new Vue({
 });*/
 
 //把过渡放到组件里
-var AnimateNumber = {
+/*var AnimateNumber = {
   props: {
     value: {
       type: Number,
@@ -659,4 +659,78 @@ new Vue({
     <div><animate-number :value="num_1"/> + <animate-number :value="num_2"/> = <animate-number :value="result"/></div>
 </div>
     `,
+});*/
+
+//混合
+// 定义一个混合对象
+/*var myMixin = {
+  created: function () {
+    this.hello()
+  },
+  methods: {
+    hello: function () {
+      console.log('hello from mixin!')
+    }
+  }
+};
+
+// 定义一个使用混合对象的组件
+var Component = Vue.extend({
+  mixins: [myMixin]
+});
+
+var component = new Component(); // => "hello from mixin!"*/
+
+// 为自定义的选项 'myOption' 注入一个处理器。
+/*Vue.mixin({
+  mounted: function () {
+    console.log(this.$options);
+    var myOption = this.$options.myOption;
+    if (myOption) {
+      console.log(myOption)
+    }
+  }
+});
+
+new Vue({
+  myOption: 'hello!',
+  el:'#example-9'
+});*/
+
+//自定义指令
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive('demo', {
+  bind: function (el, binding, vnode) {
+    var s = JSON.stringify
+    /*el.innerHTML =
+      'name: '       + s(binding.name) + '<br>' +
+      'value: '      + s(binding.value) + '<br>' +
+      'expression: ' + s(binding.expression) + '<br>' +
+      'argument: '   + s(binding.arg) + '<br>' +
+      'modifiers: '  + s(binding.modifiers) + '<br>' +
+      'vnode keys: ' + Object.keys(vnode).join(', ')
+    console.log(vnode);*/
+  }
+});
+
+Vue.directive('color-swatch', function (el, binding) {
+  el.style.backgroundColor = binding.value.color;
+  el.innerHTML = binding.value.message
+});
+
+new Vue({
+  el: '#example-10',
+  template: `<div><input v-model="color"/><div v-demo:foo.a.b="message" v-color-swatch="info" class="directive"></div></div>`,
+  data: {
+    color: '#123',
+    message: 'hello!'
+  },
+  computed: {
+    info: function () {
+      return {
+        color: this.color,
+        message: this.message
+      }
+    }
+  }
 });
