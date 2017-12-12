@@ -842,7 +842,7 @@ new Vue({
 });*/
 
 //JSX
-import Page from './page.vue';
+/*import Page from './page.vue';
 import AnchoredHead from './AnchoredHead.vue';
 
 new Vue({
@@ -860,5 +860,34 @@ new Vue({
   components: {
     AnchoredHead
   }
+});*/
+
+//函数式组件
+import AnchoredHead from './AnchoredHead.vue';
+
+Vue.component('smart-list', {
+  functional: true,
+  render: function (h, context) {
+    console.log(context);
+    return h(AnchoredHead, context.data, context.children);
+  },
+  props: {
+    items: {
+      type: Array,
+      required: true
+    },
+    isOrdered: Boolean
+  }
+});
+
+new Vue({
+  el: '#example-14',
+  data: {
+    header: 'jamie',
+    items: [{
+      text: '123'
+    }]
+  },
+  template: `<smart-list :items="items"></smart-list>`
 });
 
