@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Index from './instance/instance_1/index.vue'
 import example_1 from './instance/router/example_1.vue'
+import example_2 from './instance/router/example_2.vue'
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,7 @@ const routes = [
   {path: '/foo', component: Foo},
   {path: '/bar', component: Bar},
   {path: '/router/example_1', component: example_1},
+  {path: '/router/example_2/:id?', component: example_2},
 ];
 
 // 3. 创建 router 实例，然后传 `routes` 配置

@@ -3,6 +3,7 @@
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
+    <input type="text">
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
@@ -22,7 +23,12 @@
     </ul>
     <h2>Router</h2>
     <ul>
-      <router-link to="/router/example_1">example_1</router-link>
+      <li>
+        <router-link to="/router/example_1">example_1</router-link>
+      </li>
+      <li>
+        <router-link to="/router/example_2">动态路由匹配</router-link>
+      </li>
     </ul>
 
   </div>
