@@ -862,14 +862,24 @@ new Vue({
   }
 });*/
 
-//函数式组件
+//函数式组件 & 过滤器
 import AnchoredHead from './AnchoredHead.vue';
+import Breadcrumb from './Breadcrumb.vue';
+
+var filters = {
+  capitalize: function (value, money) {
+    console.log(money);
+    if (!value) return '';
+    value = value.toString();
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  }
+};
+
 
 Vue.component('smart-list', {
   functional: true,
   render: function (h, context) {
-    console.log(context);
-    return h(AnchoredHead, context.data, context.children);
+    return h(AnchoredHead, {props: {header: context.props.items[0].text}}, context.children);
   },
   props: {
     items: {
@@ -885,9 +895,21 @@ new Vue({
   data: {
     header: 'jamie',
     items: [{
-      text: '123'
+      text: 'header'
     }]
   },
-  template: `<smart-list :items="items"></smart-list>`
+  components:{
+    Breadcrumb
+  },
+  filters: filters,
+  template: `
+<smart-list :items="items">
+  <p>{{'Abc dce' | capitalize('money')}}</p>
+  <div slot="name">nbc</div>
+  <breadcrumb>abc</breadcrumb>
+</smart-list>
+`
 });
+
+
 

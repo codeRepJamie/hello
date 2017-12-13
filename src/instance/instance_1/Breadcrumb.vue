@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="anchored-head">
-    <h1>{{ msg }}</h1>
-    <slot></slot>
+  <div id="app" class="breadcrumb">
+    <h1>breadcrumb</h1>
+    <slot>没有东西</slot>
   </div>
 </template>
 
@@ -10,13 +10,14 @@
     name: 'app',
     props: ['header'],
     data() {
+      console.log('xxxAxx123');
       return {msg: this.header}
     }
   }
 </script>
 
 <style lang="less">
-  .anchored-head {
+  .breadcrumb {
     .h1 {
       font-size: 16px;
     }
