@@ -8,8 +8,8 @@ module.exports = {
   entry: {
     build: path.resolve(__dirname, './src/main.js'),
     instanceOne: path.resolve(__dirname, './src/instance/instance_1/main.js'),
-    vendor: ['currencyValidator', 'iview', 'iviewCss','Velocityjs'],
-    vue: ['vue']
+    vendor: ['currencyValidator', 'iview', 'iviewCss', 'Velocityjs'],
+    vue: ['vue', 'vue-router']
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -28,7 +28,7 @@ module.exports = {
         test: /\.less$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+          {loader: 'css-loader', options: {importLoaders: 1}},
           'less-loader'
         ]
       }, {

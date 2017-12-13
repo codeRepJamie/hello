@@ -20,12 +20,16 @@
     <ul>
       <li><a href="./instance_index.html" target="_blank">instance_1</a></li>
     </ul>
+    <h2>Router</h2>
+    <ul>
+      <router-link to="/router/example_1">example_1</router-link>
+    </ul>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
   data () {
     return {
       msg: 'Welcome Jamie to Your Vue.js App'
