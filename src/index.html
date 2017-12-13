@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>hello</title>
-  </head>
-  <body>
-    <div id="router">
-      <router-view></router-view>
-    </div>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>hello</title>
+</head>
+<body>
+<div id="router">
+  <router-link v-if="isShowHomePageLink" to="/">主页</router-link>
+  <router-view></router-view>
+</div>
+</body>
 </html>
