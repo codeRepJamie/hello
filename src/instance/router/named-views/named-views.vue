@@ -15,7 +15,7 @@
 
   const routes = [
     {
-      path: '/named_views',
+      path: '/named_views/:id/detail',
       components: {
         default: NamedViewsChild1,
         a: NamedViewsChild2,

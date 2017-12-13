@@ -37,7 +37,7 @@ const routes = [
       }]
   },
   {
-    name: 'NamedView', path: '/named_views', component: NamedViews,
+    name: 'NamedView', path: '/named_views/:id/detail', component: NamedViews,
   }
 ];
 

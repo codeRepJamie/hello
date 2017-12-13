@@ -30,7 +30,7 @@
         <router-link to="/router/example_2">动态路由匹配</router-link>
       </li>
       <li>
-        <router-link :to="{name:'NamedView'}">命名视图</router-link>
+        <router-link :to="{name:'NamedView',params:{id:'510240'}}">命名视图</router-link>
       </li>
     </ul>
 
