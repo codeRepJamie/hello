@@ -4,7 +4,9 @@
     <router-view class="view one"></router-view>
     <router-view class="view two" name="a"></router-view>
     <router-view class="view three" name="b"></router-view>
-    <router-link :to="{path:isDetail ? 'haha':'detail'}">{{isDetail ? 'haha' : 'detail'}}</router-link>
+    <router-link :to="{path:isDetail ? `/named_views/${id}/haha`:`/named_views/${id}/detail`}">
+      {{isDetail ? 'haha' : 'detail'}}
+    </router-link>
   </div>
 </template>
 
@@ -35,7 +37,12 @@
 
   export default {
     computed: {
+      id() {
+        return this.$route.params.id
+      },
       isDetail() {
+        console.log(this.$route);
+        console.log(this.$router);
         return /detail$/.exec(this.$route.path)
       }
     },

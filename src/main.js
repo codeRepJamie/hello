@@ -24,10 +24,10 @@ const routes = [
   {path: '/index', component: Index},
   {path: '/foo', component: Foo},
   {path: '/bar', component: Bar},
-  {path: '/router/example_1', component: example_1},
+  {name: 'example_1', path: '/router/example_1', component: example_1},
   {
-    name: 'example2',
     path: '/router/example_2/:id?',
+    name: 'example2',
     component: example_2,
     children: [
       {path: '', component: Bar},
@@ -37,7 +37,17 @@ const routes = [
       }]
   },
   {
-    name: 'NamedView', path: '/named_views/:id/detail', component: NamedViews,
+    path: '/router/example_2/555',
+    alias:'/alias'
+  },
+  {
+    path: '/named_views/:id/detail',
+    name: 'NamedView',
+    component: NamedViews,
+  },
+  {
+    path: '/bbb',
+    redirect: {name: 'NamedView', params: {id: '510240'}}
   }
 ];
 

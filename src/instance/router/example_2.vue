@@ -43,6 +43,7 @@
     },
     computed: {
       id() {
+        console.log(this.$route.params.id);
         return this.$route.params.id != null ? this.$route.params.id : '1000'
       }
     },

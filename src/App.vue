@@ -32,6 +32,12 @@
       <li>
         <router-link :to="{name:'NamedView',params:{id:'510240'}}">命名视图</router-link>
       </li>
+      <li>
+        <router-link to="/bbb">重定向</router-link>
+      </li>
+      <li>
+        <router-link :to="{path:'/alias'}">别名</router-link>
+      </li>
     </ul>
 
   </div>
