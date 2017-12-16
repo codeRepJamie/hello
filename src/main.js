@@ -53,7 +53,13 @@ const routes = [
   {
     path: '/router/example_5/:id',
     name: 'ex5',
-    props: true,
+    props(route) {
+      console.log(route);
+      return {
+        id: route.params.id,
+        query: route.query.q
+      }
+    },
     component: example_5
   }
 ];
@@ -61,6 +67,7 @@ const routes = [
 // 3. 创建 router 实例，然后传 `routes` 配置
 const router = new VueRouter({
   //mode: 'history',
+  mode: 'history',
   routes // （缩写）相当于 routes: routes
 });
 

@@ -41,6 +41,9 @@
       <li>
         <router-link :to="{name:'ex5',params: {id: '331252914'}}">路由组件传参</router-link>
       </li>
+      <li>
+        <router-link :to="{name:'ex5',params: {id: '331252914'},query:{q:'vue'}}">路由组件传参(函数模式)</router-link>
+      </li>
     </ul>
 
   </div>
