@@ -8,6 +8,7 @@ import example_3 from './instance/router/example_3.vue'
 import example_4 from './instance/router/example_4.vue'
 import NotFoundPage from './instance/router/not-found-page.vue'
 import NamedViews from './instance/router/named-views/named-views.vue'
+import example_5 from './instance/router/example_5.vue'
 
 
 Vue.use(VueRouter);
@@ -38,7 +39,7 @@ const routes = [
   },
   {
     path: '/router/example_2/555',
-    alias:'/alias'
+    alias: '/alias'
   },
   {
     path: '/named_views/:id/detail',
@@ -48,6 +49,12 @@ const routes = [
   {
     path: '/bbb',
     redirect: {name: 'NamedView', params: {id: '510240'}}
+  },
+  {
+    path: '/router/example_5/:id',
+    name: 'ex5',
+    props: true,
+    component: example_5
   }
 ];
 
