@@ -45,7 +45,12 @@
         <router-link :to="{name:'ex5',params: {id: '331252914'},query:{q:'vue'}}">路由组件传参(函数模式)</router-link>
       </li>
     </ul>
-
+    <h2>Vuex</h2>
+    <ul>
+      <li>
+        <router-link to="/vuex/example_1">example_1</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
