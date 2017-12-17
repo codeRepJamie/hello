@@ -50,6 +50,9 @@
       <li>
         <router-link to="/vuex/example_1">example_1</router-link>
       </li>
+      <li>
+        <router-link to="/vuex/example_2">example_2</router-link>
+      </li>
     </ul>
   </div>
 </template>

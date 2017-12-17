@@ -10,6 +10,7 @@ import NotFoundPage from './instance/router/not-found-page.vue'
 import NamedViews from './instance/router/named-views/named-views.vue'
 import example_5 from './instance/router/example_5.vue'
 import vue_instance_1 from './instance/vuex/instance_1/instance_1.vue'
+import vue_instance_2 from './instance/vuex/instance_2/instance_2.vue'
 
 
 Vue.use(VueRouter);
@@ -62,9 +63,14 @@ const routes = [
       }
     },
     component: example_5
-  }, {
+  },
+  {
     path: '/vuex/example_1',
     component: vue_instance_1
+  },
+  {
+    path: '/vuex/example_2',
+    component: vue_instance_2
   }
 ];
 
