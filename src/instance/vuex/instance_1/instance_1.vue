@@ -8,7 +8,7 @@
 
 <script>
   import Vue from 'vue';
-  //运行不了，只是官网yy出来构想？没引入
+
   let store = new Vue({
     created() {
       this.name = 'store'
