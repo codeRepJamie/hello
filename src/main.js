@@ -145,7 +145,8 @@ new Vue({
   },
   methods: {
     logout() {
-      state.$emit('changeLoginState',state.isLogin = false);
+      state.isLogin = false;
+      state.$emit('changeLoginState',state.isLogin);
       this.$router.replace({
         name: 'HomePage'
       });
