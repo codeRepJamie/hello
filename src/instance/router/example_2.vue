@@ -18,7 +18,7 @@
         <router-link to="/router/example_2/3000/modify">动态路由参数5000(嵌套路由)</router-link>
       </li>
       <li class="list">
-        <button @click="routerPush('ex1')">编程式的导航1</button>
+        <button id="imarco" @click="routerPush('ex1')">编程式的导航1</button>
       </li>
       <li class="list">
         <button @click="routerPush('ex2')">router.replace</button>

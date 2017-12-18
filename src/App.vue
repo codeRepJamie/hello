@@ -44,6 +44,9 @@
       <li>
         <router-link :to="{name:'ex5',params: {id: '331252914'},query:{q:'vue'}}">路由组件传参(函数模式)</router-link>
       </li>
+      <li>
+        <router-link :to="{name:'ex6',params: {id: '331252914'},query:{q:'vue',gard:0}}">组件内的守卫</router-link>
+      </li>
     </ul>
     <h2>Vuex</h2>
     <ul>
